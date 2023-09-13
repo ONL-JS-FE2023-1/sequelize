@@ -36,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         isEmail: true
       }
@@ -48,11 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATEONLY,
       validate: {
         isDate: true,
-        isValidDate(value) {
-          if(isAfter(new Date(value), new Date())) { // дата, яку ми прокидуємо в стовпець після поточної
-            throw new Error('Your birtday must be earlier than today');
-          }
-        } 
+        isBefore: new Date().toDateString()
       }
     },
     gender: {
