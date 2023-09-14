@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Task.belongsTo(models.User, {
+        foreignKey: 'userId'
+      });
     }
   }
   Task.init({
@@ -40,3 +43,12 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Task;
 };
+
+/*
+
+Як створити зв'язок між моделями?
+
+1. На рівні таблиць (міграції) мати колонки з зовнішнім ключем
+2. Прописати зв'язки на рівні моделей (метод associate в моделі)
+
+*/
