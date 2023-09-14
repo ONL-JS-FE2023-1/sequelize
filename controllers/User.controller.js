@@ -67,3 +67,15 @@ module.exports.updateById = async (req, res, next) => {
         next(error);
     }
 }
+
+
+/*
+
+Tasks
+
+- body - string: not null, not empty (not '')
+- isDone - boolean: not null
+- deadline: date: isDate: true
+
+
+*/
