@@ -24,9 +24,8 @@ module.exports.findAll = async (req, res, next) => {
 // Задача: реалізувати пошук якогось конкретного юзера
 module.exports.findOneById = async (req, res, next) => {
     try {
-        const {params: {id}} = req;
-        const findUser = await User.findByPk(id);
-        return res.status(200).send(findUser);
+        const { userInstance } = req;
+        return res.status(200).send(userInstance);
     } catch (error) {
         next(error);
     }
@@ -36,11 +35,11 @@ module.exports.findOneById = async (req, res, next) => {
 
 module.exports.deleteById = async (req, res, next) => {
     try {
-        const {params: {id}} = req;
+        const {params: {userId}} = req;
 
         const rowsCount = await User.destroy({
             where: {
-                id // id: id
+                id: userId
             }
         });
 
@@ -54,39 +53,12 @@ module.exports.deleteById = async (req, res, next) => {
     }
 }
 
-// module.exports.updateById = async (req, res, next) => {
-//     try {
-//         const {params: {id}, body} = req;
-//         const result = await User.update(body, {
-//             where: {
-//                 id // id: id
-//             }
-//         })
-//         return res.status(200);
-//     } catch (error) {
-//         next(error);
-//     }
-// }
-
 module.exports.updateById = async (req, res, next) => {
     try {
-        const {params: {id}, body} = req;
-        const foundedUser = await User.findByPk(id);
-        const result = foundedUser.update(body);
+        const { userInstance, body } = req;
+        const result = await userInstance.update(body);
         return res.status(200).send(result);
     } catch (error) {
         next(error);
     }
 }
-
-
-/*
-
-Tasks
-
-- body - string: not null, not empty (not '')
-- isDone - boolean: not null
-- deadline: date: isDate: true
-
-
-*/
