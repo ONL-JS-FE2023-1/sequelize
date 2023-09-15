@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const yup = require('yup');
+const UserNotFound = require('../errors/UserNotFound');
 const { USER_SCHEMA } = require('../schemas/user.schema');
 
 module.exports.getUserInstance = async (req, res, next) => {
@@ -7,7 +7,7 @@ module.exports.getUserInstance = async (req, res, next) => {
         const {params: {userId}} = req;
         const user = await User.findByPk(userId);
         if(!user) {
-            throw new Error('User not found');
+            throw new UserNotFound('User not found');
         }
         req.userInstance = user;
         next();
