@@ -36,3 +36,21 @@ module.exports.getUserGroups = async (req, res, next) => {
         next(error);
     }
 }
+
+// Задача: написати контроллер на видалення юзера з групи
+module.exports.deleteUserFromGroup = async (req, res, next) => {
+    try {
+        const {userInstance, params: {groupId}} = req;
+        // 1. Знайти сутність групи
+        const groupInstance = await Group.findByPk(groupId);
+        // 2. Видалення юзера
+        const rowCount = await groupInstance.removeUser(userInstance);
+
+        if(rowCount) {
+            return res.status(200).send('User succesfully deleted');
+        }
+        return res.status(200).send('User is never been in this group');
+    } catch (error) {
+        next(error);
+    }
+}
