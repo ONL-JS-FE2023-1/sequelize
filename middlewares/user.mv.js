@@ -5,7 +5,11 @@ const { USER_SCHEMA } = require('../schemas/user.schema');
 module.exports.getUserInstance = async (req, res, next) => {
     try {
         const {params: {userId}} = req;
-        const user = await User.findByPk(userId);
+        const user = await User.findByPk(userId, {
+            attributes: {
+                exclude: ['password']
+            }
+        });
         if(!user) {
             throw new UserNotFound('User not found');
         }

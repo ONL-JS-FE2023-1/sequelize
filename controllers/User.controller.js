@@ -90,6 +90,7 @@ module.exports.getUserWithGroups = async (req, res, next) => { // eager load
         const {params: {userId}} = req;
 
         const userWithGroups = await User.findByPk(userId, {
+            attributes: ['id', 'first_name', 'last_name'], // працює на таблицю users
             // include: [Group] --> LEFT JOIN
             include: { // --> INNER JOIN
                 model: Group,
@@ -104,6 +105,13 @@ module.exports.getUserWithGroups = async (req, res, next) => { // eager load
         if(!userWithGroups) {
             throw new UserNotFound();
         }
+
+        // Видалення поля 'password' з результату запиту
+        // Отримуємо usersWithGroups як об'єкт JSON
+        //const userWithGroupsJSON = userWithGroups.toJSON();
+
+        // Видаляємо поле 'password' з JSON
+        //delete userWithGroupsJSON.password;
 
         return res.status(200).send(userWithGroups);
     } catch (error) {
