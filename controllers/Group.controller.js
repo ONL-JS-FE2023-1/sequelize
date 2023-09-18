@@ -1,4 +1,5 @@
-const { Group } = require('../models');
+const UserNotFound = require('../errors/UserNotFound');
+const { Group, User } = require('../models');
 
 module.exports.createGroup = async (req, res, next) => {
     try {
@@ -17,6 +18,20 @@ module.exports.addUserToGroup = async (req, res, next) => {
         const group = await Group.findByPk(groupId);
         const result = await group.addUser(userInstance);
         return res.status(200).send('User successfully added to group');
+    } catch (error) {
+        next(error);
+    }
+}
+
+// Задача: отримати певного юзера з всіма групами, в яких він перебуває
+module.exports.getUserGroups = async (req, res, next) => {
+    try {
+        // +1 дія: отримуємо сутність юзера
+        const { userInstance } = req;
+        // 2 дія: викликаємо магічний метод у сутності юзера
+        const groups = await userInstance.getGroups();
+        // 3 дія: відправляємо результат клієнту
+        return res.status(200).send(groups);
     } catch (error) {
         next(error);
     }

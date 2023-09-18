@@ -11,6 +11,7 @@ const router = Router();
 router.post('/user', validateUser, UserController.createUser);
 router.get('/users', UserController.findAll);
 router.get('/user/:userId', getUserInstance, UserController.findOneById);
+router.get('/users/groups/:userId', UserController.getUserWithGroups);
 router.delete('/user/:userId', UserController.deleteById);
 router.put('/user/:userId', getUserInstance, UserController.updateById);
 
@@ -22,4 +23,5 @@ router.get('/task-count/:userId', getUserInstance, TaskController.getCountOfTask
 // group section
 router.post('/groups', GroupController.createGroup);
 router.put('/groups/:userId/:groupId', getUserInstance, GroupController.addUserToGroup)
+router.get('/groups/:userId', getUserInstance, GroupController.getUserGroups);
 module.exports = router;

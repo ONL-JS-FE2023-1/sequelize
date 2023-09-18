@@ -1,4 +1,5 @@
-const { User } = require('../models');
+const UserNotFound = require('../errors/UserNotFound');
+const { User, Group } = require('../models');
 
 // Задача: написати контроллер на створення юзера
 module.exports.createUser = async (req, res, next) => {
@@ -58,6 +59,53 @@ module.exports.updateById = async (req, res, next) => {
         const { userInstance, body } = req;
         const result = await userInstance.update(body);
         return res.status(200).send(result);
+    } catch (error) {
+        next(error);
+    }
+}
+
+// Задача: отримати сутність юзера і всі групи, в яких цей юзер состоїть
+// при тому, потрібно зберегти всю інформацію про групи
+// тобто, потрібно зберегти інформацію про сутність юзера і про сутність групи
+// module.exports.getUserWithGroups = async (req, res, next) => { // lazy load
+//     try {
+//         const {params: {userId}} = req;
+//         const user = await User.findByPk(userId);
+
+//         if(!user) {
+//             throw new UserNotFound();
+//         }
+
+//         const groups = await user.getGroups();
+
+//         return res.status(200).send({data: {user, groups}});
+//     } catch (error) {
+//         next(error);
+//     }
+// }
+
+// задача: знайти юзера зі всіма його групами
+module.exports.getUserWithGroups = async (req, res, next) => { // eager load
+    try {
+        const {params: {userId}} = req;
+
+        const userWithGroups = await User.findByPk(userId, {
+            // include: [Group] --> LEFT JOIN
+            include: { // --> INNER JOIN
+                model: Group,
+                required: true,
+                through: { // налаштування зв'язуючої таблиці
+                    attributes: [] //працює на зв'язуючу таблицю
+                },
+                attributes: ['id', 'name'] // працює на таблицю groups
+            }
+        });
+
+        if(!userWithGroups) {
+            throw new UserNotFound();
+        }
+
+        return res.status(200).send(userWithGroups);
     } catch (error) {
         next(error);
     }
