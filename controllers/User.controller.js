@@ -15,7 +15,10 @@ module.exports.createUser = async (req, res, next) => {
 // Задача: реалізувати пошук всіх юзерів
 module.exports.findAll = async (req, res, next) => {
     try {
-        const allUsers = await User.findAll();
+        const { pagination } = req
+        const allUsers = await User.findAll({
+            ...pagination
+        });
         return res.status(200).send(allUsers);
     } catch (error) {
         next(error);
