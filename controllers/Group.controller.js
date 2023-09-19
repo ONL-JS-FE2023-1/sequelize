@@ -80,9 +80,18 @@ module.exports.getGroupWithMembers = async (req, res, next) => {
 // Задача: Створити метод, який буде створювати картинки для групи
 module.exports.createGroupImage = async (req, res, next) => {
     try {
-        const {params: {groupId}} = req;
-        console.log(req.file);
-        return res.send({groupId});
+        const {params: {groupId}, file: {filename}} = req;
+        
+        const [rowCount, [updatedGroup]] = await Group.update({
+            imagePath: filename
+        }, {
+            where: {
+                id: groupId
+            },
+            returning: true
+        });
+
+        return res.send(updatedGroup);
     } catch (error) {
         next(error);
     }
