@@ -54,3 +54,28 @@ module.exports.deleteUserFromGroup = async (req, res, next) => {
         next(error);
     }
 }
+
+// Задача: отримати одну групу зі всіма її учасниками
+// При тому, юзер має приходити без паролю
+
+module.exports.getGroupWithMembers = async (req, res, next) => {
+    try {
+        const {params: {groupId}} = req;
+
+        const groupWithUsers = await Group.findAll({
+            where: {
+                id: groupId
+            },
+            include: [{
+                model: User,
+                attributes: {
+                    exclude: ['password']
+                }
+            }] 
+        });
+
+        return res.status(200).send(groupWithUsers);
+    } catch (error) {
+        next(error);
+    }
+}
