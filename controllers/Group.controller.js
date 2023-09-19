@@ -62,10 +62,7 @@ module.exports.getGroupWithMembers = async (req, res, next) => {
     try {
         const {params: {groupId}} = req;
 
-        const groupWithUsers = await Group.findAll({
-            where: {
-                id: groupId
-            },
+        const groupWithUsers = await Group.findByPk(groupId, {
             include: [{
                 model: User,
                 attributes: {
