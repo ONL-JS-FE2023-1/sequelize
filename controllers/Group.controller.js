@@ -76,3 +76,14 @@ module.exports.getGroupWithMembers = async (req, res, next) => {
         next(error);
     }
 }
+
+// Задача: Створити метод, який буде створювати картинки для групи
+module.exports.createGroupImage = async (req, res, next) => {
+    try {
+        const {params: {groupId}} = req;
+        console.log(req.file);
+        return res.send({groupId});
+    } catch (error) {
+        next(error);
+    }
+}
