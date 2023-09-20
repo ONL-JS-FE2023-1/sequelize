@@ -1,8 +1,8 @@
+import UserList from "./UserList/UserList";
+
 function App() {
   return (
-    <h1>
-      Remember frontend!
-    </h1>
+    <UserList />
   );
 }
 

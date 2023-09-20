@@ -1,0 +1,19 @@
+.card-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-wrapper {
+    width: 250px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.card-wrapper h1 {
+    text-align: center;
+}
