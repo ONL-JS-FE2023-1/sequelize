@@ -96,3 +96,7 @@ module.exports.createGroupImage = async (req, res, next) => {
         next(error);
     }
 }
+
+// + 1. Відправити картинку на сервер, зберегти її (multer)
+// + 2. Прокинути назву картинки в БД (sequelize)
+// + 3. Навчити сервер віддавати картинку (express)
