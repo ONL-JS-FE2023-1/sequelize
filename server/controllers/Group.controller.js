@@ -100,3 +100,12 @@ module.exports.createGroupImage = async (req, res, next) => {
 // + 1. Відправити картинку на сервер, зберегти її (multer)
 // + 2. Прокинути назву картинки в БД (sequelize)
 // + 3. Навчити сервер віддавати картинку (express)
+
+module.exports.getAllGroups = async(req, res, next) => {
+    try {
+        const allGroups = await Group.findAll();
+        return res.status(200).send(allGroups);
+    } catch (error) {
+        next(error);
+    }
+}

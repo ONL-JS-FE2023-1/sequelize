@@ -21,6 +21,7 @@ const groupRouter = Router();
 groupRouter.post('/', GroupController.createGroup);
 groupRouter.put('/:userId/:groupId', getUserInstance, GroupController.addUserToGroup)
 groupRouter.get('/:userId', getUserInstance, GroupController.getUserGroups);
+groupRouter.get('/', GroupController.getAllGroups);
 groupRouter.delete('/:userId/:groupId', getUserInstance, GroupController.deleteUserFromGroup);
 groupRouter.get('/:groupId/members', GroupController.getGroupWithMembers);
 groupRouter.post('/:groupId', upload.single('groupAvatar'), GroupController.createGroupImage);

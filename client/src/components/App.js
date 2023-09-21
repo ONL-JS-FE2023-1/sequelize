@@ -1,8 +1,9 @@
+import GroupList from "./GroupList/GroupList";
 import UserList from "./UserList/UserList";
 
 function App() {
   return (
-    <UserList />
+    <GroupList />
   );
 }
 
@@ -12,9 +13,9 @@ export default App;
 
 // 1. Get Users - done
 // 2. Get User - done
-// 3. Create User
-// 4. Get Groups
-// 5. Get Group
+// 3. Create User - done
+// 4. Get Groups - done
+// 5. Get Group - done
 // 6. Create Group
 
 // 7. Create group image
