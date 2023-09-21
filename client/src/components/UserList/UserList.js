@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { getUsers } from '../../api';
 import UserCard from './UserCard';
+import UserCardModal from './UserCardModal';
+
 
 const UserList = () => {
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
+    // Стан для зберігання обраного користувача
+    const [selectedUser, setSelectedUser] = useState(null);
+    // Стан для відкриття/закриття модального вікна
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const loadUsers = (pageNumber) => {
         getUsers(pageNumber)
@@ -26,7 +32,15 @@ const UserList = () => {
     }, [page])
 
     const renderUsers = () => {
-        return users.map((user) => <UserCard user={user} key={user.id} />);
+        return users.map((user) => 
+        <UserCard 
+        user={user} 
+        key={user.id} 
+        onClick={() => { // Це не обробник, це пропс!
+            setSelectedUser(user);
+            setIsModalOpen(true);
+        }}
+        />);
     }
 
     const prevBtnHandler = () => {
@@ -51,11 +65,15 @@ const UserList = () => {
                     <button onClick={nextBtnHandler} disabled={users.length < 5}>Next page</button>
                 </div>
             </section>
+
+            {/* Модальне вікно */}
+            <UserCardModal
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}
+                selectedUser={selectedUser}
+            />
         </>
     );
 }
 
 export default UserList;
-
-// 1. react-router-dom
-// 

@@ -7,3 +7,15 @@ function App() {
 }
 
 export default App;
+
+// Задача: покрити 1/4 API сервера інтерфейсом клієнта
+
+// 1. Get Users - done
+// 2. Get User
+// 3. Create User
+// 4. Get Groups
+// 5. Get Group
+// 6. Create Group
+
+// 7. Create group image
+// 8. react-router-dom
