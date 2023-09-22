@@ -51,3 +51,18 @@ export const createGroup = async (groupData) => {
     // Повертаємо відповідь сервера
     return data;
 }
+
+export const createGroupImage = async (image, groupId) => {
+    const url = `http://localhost:5000/api/groups/${groupId}`;
+    // Об'єкт з параметрами запиту, який далі передаємо fetch
+    const requestOptions = {
+        method: 'POST',
+        body: image
+    };
+
+    // Відправляємо POST-запит
+    const response = await fetch(url, requestOptions);
+    const data = await response.json();
+    // Повертаємо відповідь сервера
+    return data;
+}
