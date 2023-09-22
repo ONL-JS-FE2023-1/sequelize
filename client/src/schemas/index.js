@@ -8,3 +8,8 @@ export const USER_SCHEMA = yup.object({
     birthday: yup.date().required('Required!').max(new Date(), 'Birthday must be today or earlier'),
     gender: yup.string().required('Required!')
 });
+
+export const GROUP_SCHEMA = yup.object({
+    name: yup.string().required('Required!').min(2).max(30),
+    description: yup.string()
+});

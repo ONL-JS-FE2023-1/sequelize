@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getGroups } from '../../api';
 import GroupCard from './GroupCard';
 import GroupCardModal from './GroupCardModal';
+import AddGroupFormModal from './AddGroupFormModal';
 
 const GroupList = () => {
     const [groups, setGroups] = useState([]);
@@ -46,16 +47,22 @@ const GroupList = () => {
     return (
         <>
             <h1>Group List</h1>
+            <button onClick={() => setIsModalAddOpen(true)}>Add group</button>
             <section className='card-container'>
                 {error && <h2 style={{backgroundColor: 'red', color: 'white'}}>{error.message}</h2>}
                 {groups.length > 0 ? renderGroups() : <h2>Груп немає</h2>}
             </section>
 
-            {/* Модальні вікні */}
+            {/* Модальні вікна */}
             <GroupCardModal
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
                 selectedGroup={selectedGroup}
+            />
+            <AddGroupFormModal
+                isModalOpen={isModalAddOpen}
+                setIsModalOpen={setIsModalAddOpen}
+                loadGroups={loadGroups}
             />
         </>
     );

@@ -16,7 +16,7 @@ export default App;
 // 3. Create User - done
 // 4. Get Groups - done
 // 5. Get Group - done
-// 6. Create Group
+// 6. Create Group - done
 
 // 7. Create group image
 // 8. react-router-dom
